@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+dist/
+build/
+*.egg-info/
+
+# Datasets, caches and model artifacts
+data/
+*.npy
+
+.DS_Store
