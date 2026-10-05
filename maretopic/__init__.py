@@ -17,4 +17,4 @@ on a latent vector or a distribution over the vocabulary.
 from .model import MARETopic
 
 __all__ = ["MARETopic"]
-__version__ = "0.1.0"
+__version__ = "1.0.0"

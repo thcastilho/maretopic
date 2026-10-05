@@ -46,7 +46,7 @@ pip install "maretopic[topmost] @ git+https://github.com/thcastilho/maretopic"
 
 **Dependencies:** `numpy`, `scikit-learn`, `tqdm`, `sentence-transformers`, `umap-learn`, and [`interpretable-embeddings`](https://github.com/thcastilho/interpretable-embeddings) (which provides the canonical GRaCE and RaDE implementations).
 
-Requires Python ≥ 3.9.
+Requires Python ≥ 3.10.
 
 ---
 

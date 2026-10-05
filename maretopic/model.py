@@ -12,11 +12,11 @@ from sklearn.neighbors import BallTree
 from tqdm import tqdm
 
 # Canonical implementations from interpretable-embeddings. GRaCE/RaDE drive
-# train-side leader selection + embedding (delegated in fit()); compute_jacmax
-# backs the out-of-sample transform() correlation path.
+# train-side leader selection + embedding (delegated in fit());
+# compute_jacmax_to_lists backs the out-of-sample transform() correlation path.
 from interpretable_embeddings.grace import GRaCE
 from interpretable_embeddings.rade import RaDE
-from interpretable_embeddings.measures.correlation import compute_jacmax
+from interpretable_embeddings.measures.correlation import compute_jacmax_to_lists
 
 from .embeddings import encode_sbert, build_ranked_lists
 from .words import extract_topic_words_with_scores
@@ -161,15 +161,13 @@ class MARETopic:
         k = min(self.top_K + 1, len(train_emb))
 
         indices = _query_oos_knn(test_emb, train_emb, k)  # (N_test, k)
+        test_rks = indices[:, : self.top_K]     # already excludes nothing — train BallTree
 
         print("  [MARETopic] Computing test θ (out-of-sample JacMax)...")
         theta = np.zeros((N_test, K), dtype=np.float32)
-        for i in tqdm(range(N_test)):
-            test_rk = indices[i].tolist()           # already excludes nothing — train BallTree
-            for j, ld in enumerate(leaders):
-                theta[i, j] = compute_jacmax(
-                    test_rk, rks[ld][: self.top_K], self.top_K
-                )
+        # One call per leader: its ranked list against the lists of all test docs.
+        for j, ld in enumerate(tqdm(leaders)):
+            theta[:, j] = compute_jacmax_to_lists(rks[ld][: self.top_K], test_rks)
 
         return theta
 

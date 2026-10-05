@@ -1,6 +1,6 @@
 [project]
 name = "maretopic"
-version = "0.1.0"
+version = "1.0.0"
 description = "Manifold-Aware and Rank-based Exemplars Topic Modeling: training-free topic discovery via rank-based prototype selection."
 authors = [{ name="Thiago César Castilho Almeida", email="tc.almeida@unesp.br" },
 { name="Daniel Carlos Guimarães Pedronette", email="daniel.pedronette@unesp.br" }]
@@ -12,9 +12,9 @@ dependencies = [
   "tqdm",
   "sentence-transformers",
   "umap-learn",
-  "interpretable-embeddings>=1.2.0",
+  "interpretable-embeddings>=2.0.0",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 keywords = ["topic modeling", "ranking", "prototype selection", "manifold learning", "interpretability", "unsupervised learning"]
 
 classifiers = [
